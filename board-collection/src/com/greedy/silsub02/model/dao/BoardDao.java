@@ -40,7 +40,6 @@ public class BoardDao {
 		}catch (ClassNotFoundException e) {
 				e.printStackTrace();
 		} catch (FileNotFoundException e1) {
-			System.out.println("파일이 없음");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		} finally {
@@ -89,14 +88,15 @@ public class BoardDao {
 	 */
 	public int writeBoardList(ArrayList<BoardVO> list) {
 		
-		
+		File file = new File("src/com/greedy/silsub02/model/dao/boardList.txt");
 		ObjectOutputStream objOut = null; 
 
-		
+		int num = 0;
 		try {
-			objOut = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("src/com/greedy/silsub02/model/dao/boardList.txt")));
-			
-		
+			if(file.createNewFile()) {
+				num = 1;
+			}
+			objOut = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
 			
 			for(int i = 0; i < list.size(); i++) {
 				objOut.writeObject(list.get(i));
@@ -141,7 +141,7 @@ public class BoardDao {
 //			}
 //		}
 //		
-		return 1;
+		return num;
 	}
 	
 }

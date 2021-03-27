@@ -14,7 +14,6 @@ public class ResultPrinter {
 	 * </pre>
 	 */
 	public void printAllList(ArrayList<BoardVO> list) {
-		System.out.println("확인");
 		if(list.isEmpty()) {
 			System.out.println("게시물이 없습니다.");
 		} else {
@@ -39,8 +38,11 @@ public class ResultPrinter {
 	 */
 	public void errorPage(String msg) {
 		switch(msg) {
-		case "insertBoard" : System.out.println("게시글 등록 실패..에러발생"); break;
-		case "selectOneBoard" : System.out.println("게시글 조회 실패..에러발생!"); break;
+		case "insertBoard" : System.out.println("게시글 등록 실패"); break;
+		case "selectOne" : System.out.println("조회된 글이 없습니다."); break;
+		case "updateTitle" : System.out.println("게시글 제목 수정 실패!"); break;
+		case "updateContent" : System.out.println("게시글 내용 수정 실패!"); break;
+		case "deleteBoard" : System.out.println("게시글 삭제 실패!");
 		}
 	}
 	
@@ -50,7 +52,10 @@ public class ResultPrinter {
 	public void successPage(String msg) {
 		switch(msg) {
 			case "insertBoard" : System.out.println("게시글 등록 성공!"); break;
-			case "selectOneBoard" : System.out.println("게시글 조회 성공!"); break;
+			case "selectOne" : System.out.println("게시글 조회 성공!"); break;
+			case "updateTitle" : System.out.println("게시글 제목 수정 성공!"); break;
+			case "updateContent" : System.out.println("게시글 내용 수정 성공!"); break;
+			case "deleteBoard" : System.out.println("게시글 삭제 성공!"); break;
 		}
 		
 	}

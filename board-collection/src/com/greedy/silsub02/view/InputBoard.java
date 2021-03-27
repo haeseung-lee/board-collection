@@ -1,5 +1,6 @@
 package com.greedy.silsub02.view;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -19,34 +20,40 @@ public class InputBoard {
 	 */
 	public BoardVO inputBoard() {
 		
-		BoardVO book = new  BoardVO();
+		BoardVO board = new  BoardVO();
 		Scanner sc = new Scanner(System.in);
 		
-		book.setBoardTitle(inputBoardTitle());
+		board.setBoardTitle(inputBoardTitle());
+		
 		System.out.print("작성자 : ");
 		String writer = sc.nextLine();
-		book.setBoardWriter(writer);
-		System.out.println("내용 : ");
+		board.setBoardWriter(writer);
 		
-		String content = "";
+		board.setBoardContent(inputBoardContent());
 		
-		while(true) {
-			String input = sc.nextLine();
-			if(input.equals("exit")) {
-				break;
-			} else {
-				content += input + "\n";
-				book.setBoardContent(content);
-			}
-		}
+		board.setBoardDate(new Date());
+		System.out.println("입력창");
+		return board;
+//		내용 직접입력
+//		System.out.println("내용 : ");
+//		
+//		String content = "";
+//		
+//		while(true) {
+//			String input = sc.nextLine();
+//			if(input.equals("exit")) {
+//				break;
+//			} else {
+//				content += input + "\n";
+//				board.setBoardContent(content);
+//			}
+//		}
 		
 //		do {
 //		 book.setBoardContent(sc.nextLine());
 //		 sc.nextLine();
 //		 System.out.println("여기까진됨");
 //		} while(!sc.nextLine().equals("exit"));
-		book.setBoardDate(new Date());
-		return book;
 	}
 	
 	/**
@@ -58,9 +65,16 @@ public class InputBoard {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("번호를 입력하세요");
 		int inputNum = sc.nextInt();
-		int no = 0;
-		BoardDao bd = new BoardDao();
-		
+
+//		입력받은 번호를 찾아서 있으면 return 없으면 error message 출력하고 메소드 종료하고 싶다면?		
+//		BoardDao bd = new BoardDao();                       
+//		ArrayList<BoardVO> list = bd.readBoardList();
+//		for(int i = 0; i < list.size(); i++) {
+//			if(inputNum == list.get(i).getBoardNo()) {
+//				num = inputNum;
+//				break;
+//			}
+//		}
 		
 		
 		return inputNum;
@@ -84,7 +98,22 @@ public class InputBoard {
 	 * 내용을 입력받아 리턴
 	 * </pre>
 	 */
-	public String inputBoardContent() {
-		return new BoardVO().getBoardContent();
+	public String inputBoardContent() {		
+	
+	BoardVO board = new BoardVO();
+	Scanner sc= new Scanner(System.in);
+	System.out.println("내용 : ");
+	
+	String content = "";
+	
+		while(true) {
+			String input = sc.nextLine();
+			if(input.equals("exit")) {
+				break;
+			} else {
+				content += input + "\n";
+			}
+		}
+		return content;
 	}
 }

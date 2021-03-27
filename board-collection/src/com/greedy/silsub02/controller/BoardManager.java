@@ -19,22 +19,23 @@ public class BoardManager {
 	 * </pre>
 	 */
 	public void insertBoard(BoardVO b) {
+		
 		bd = new BoardDao();
 		rp = new ResultPrinter();
-		b.setBoardNo(0);
 		
-			if(bd.readBoardList().isEmpty()) {
+		ArrayList<BoardVO> list = bd.readBoardList();
+		b.setBoardNo(0);
+			if(list.isEmpty()) {
 				//새로운 리스트생성
 				b.setBoardNo(1);
 			} else {
-				b.setBoardNo(bd.readBoardList().size()+1);
+				b.setBoardNo(list.size()+1);
 			}
 			
-		ArrayList<BoardVO> list = bd.readBoardList();
 		list.add(b);
-		if(bd.writeBoardList(list) == 1) {
-			rp.successPage("insertBoard");
-		}
+		bd.writeBoardList(list);
+		rp.successPage("insertBoard");
+		
 	}
 	
 	
@@ -58,25 +59,26 @@ public class BoardManager {
 	public void selectOneBoard(int boardNo) {
 		bd = new BoardDao();
 		rp = new ResultPrinter();
-		int num = 0;
+		int num = -1;
 		ArrayList<BoardVO> list = bd.readBoardList();
 		
 		for(int i = 0; i < list.size(); i++) {
 			if(boardNo == list.get(i).getBoardNo()) {
 				list.get(i).setReadCount(list.get(i).getReadCount() +1 );
 				
-				num = 1;
+				num = i;
 				break;
 			} 
 		}
 		
-		bd.writeBoardList(list);
 		
 		rp = new ResultPrinter();
-		if(num == 1) {
-			rp.successPage("selectOneBoard");
+		if(num != -1) {
+			bd.writeBoardList(list);
+			rp.successPage("selectOne");
+			System.out.println(list.get(num));
 		} else {
-			rp.errorPage("selectOneBoard");
+			rp.errorPage("selectOne");
 		}
 		
 	}
@@ -89,21 +91,22 @@ public class BoardManager {
 	public void updateBoardTitle(int boardNo, String title) {
 		bd = new BoardDao();
 		ArrayList<BoardVO> list = bd.readBoardList(); 
-		int num = 0;
+		int num = -1;
 		for(int i = 0; i < list.size(); i++) {
 			
 			if(boardNo == list.get(i).getBoardNo()) {
 				list.get(i).setBoardTitle(title);
-				
-				num = 1; break;
+				num = i; break;
 			} 
 		}
-		bd.writeBoardList(list);
-		if(num == 1) {
-			System.out.println("제목변경 성공");
-			
+		
+		rp = new ResultPrinter();
+		if(num != -1) {
+			bd.writeBoardList(list);
+			rp.successPage("updateTitle");
+			System.out.println("수정된제목 : " + list.get(num).getBoardTitle());
 		} else {
-			System.out.println("없는번호.");
+			rp.errorPage("updateTitle");
 		}
 		
 	}
@@ -114,7 +117,26 @@ public class BoardManager {
 	 * </pre>
 	 */
 	public void updateBoardContent(int boardNo, String content) {
+		bd = new BoardDao();
+		ArrayList<BoardVO> list = bd.readBoardList(); 
+		int num = -1;
+		for(int i = 0; i < list.size(); i++) {
+			
+			if(boardNo == list.get(i).getBoardNo()) {
+				list.get(i).setBoardContent(content);
+				
+				num = i; break;
+			} 
+		}
 		
+		rp = new ResultPrinter();
+		if(num != -1) {
+			bd.writeBoardList(list);
+			rp.successPage("updateContent");
+			System.out.println("수정된 내용 : " + list.get(num).getBoardContent());
+		} else {
+			rp.errorPage("updateContent");
+		}
 	}
 	
 	/**
@@ -124,7 +146,24 @@ public class BoardManager {
 	 */
 	public void deleteBoard(int boardNo) {
 		
+		bd = new BoardDao();
+		ArrayList<BoardVO> list = bd.readBoardList(); 
+		int num = -1;
+		for(int i = 0; i < list.size(); i++) {
+			
+			if(boardNo == list.get(i).getBoardNo()) {
+				list.remove(i);
+				num = i; break;
+			} 
+		}
 		
+		rp = new ResultPrinter();
+		if(num != -1) {
+			bd.writeBoardList(list);
+			rp.successPage("deleteBoard");
+		} else {
+			rp.errorPage("deleteBoard");
+		}
 	}
 	
 	/**
@@ -134,6 +173,25 @@ public class BoardManager {
 	 */
 	public void searchBoard(String title) {
 		
+		bd = new BoardDao();
+		rp = new ResultPrinter();
+		
+		ArrayList<BoardVO> allList = bd.readBoardList();
+		rp.printAllList(allList);
+		
+		ArrayList<BoardVO> searchList = new ArrayList<>();
+		for(int i = 0; i < allList.size(); i++) {
+			if(title.equals(allList.get(i).getBoardTitle())) {
+				searchList.add(allList.get(i)); break;
+			} 
+		}
+		
+		if(!searchList.isEmpty()) {
+			System.out.println("검색 제목 : " + title);
+			rp.printBoard(allList.get(0));
+		} else {
+			rp.noSearchResult();
+		}
 	}
 	
 	/**
