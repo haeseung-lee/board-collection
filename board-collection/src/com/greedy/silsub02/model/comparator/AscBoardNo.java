@@ -2,11 +2,14 @@ package com.greedy.silsub02.model.comparator;
 
 import java.util.Comparator;
 
-public class AscBoardNo implements Comparator{
+import com.greedy.silsub02.vo.BoardVO;
+
+public class AscBoardNo implements Comparator<BoardVO>{
 
 	@Override
-	public int compare(Object o1, Object o2) {
-		return 0;
+	public int compare(BoardVO b1, BoardVO b2) {
+		
+		return b1.getBoardNo() - b2.getBoardNo();
 	}
 
 }

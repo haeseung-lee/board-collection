@@ -81,19 +81,19 @@ public class BoardVO implements Serializable{
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BoardVO [serialVersionUID=");
-		builder.append(serialVersionUID);
-		builder.append(", boardNo=");
+//		builder.append("BoardVO [serialVersionUID=");
+//		builder.append(serialVersionUID);
+		builder.append("글번호 : ");
 		builder.append(boardNo);
-		builder.append(", boardTitle=");
+		builder.append(", 제목 : ");
 		builder.append(boardTitle);
-		builder.append(", boardWriter=");
+		builder.append(", 작성자 : ");
 		builder.append(boardWriter);
-		builder.append(", boardDate=");
+		builder.append(", 등록일 : ");
 		builder.append(boardDate);
-		builder.append(", boardContent=");
+		builder.append(", 내용 : \n");
 		builder.append(boardContent);
-		builder.append(", readCount=");
+		builder.append(", 조회수 : ");
 		builder.append(readCount);
 		builder.append("]");
 		return builder.toString();

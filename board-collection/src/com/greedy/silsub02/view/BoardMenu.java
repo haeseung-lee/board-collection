@@ -54,17 +54,21 @@ public class BoardMenu {
 				case "8" : new BoardMenu().sortSubMenu(); break;
 				case "9" : System.out.println("프로그램이 종료되었습니다."); break label;
 				default : System.out.println("잘못된 번호를 입력하셨습니다."); break;
-				
 			}
 		}
+		sc.close();
 	}
 	
 	/**
 	 * <pre>
 	 * 게시글 정렬메뉴(정렬은 오름차순, 내림차순)
 	 * 정렬대상 : 글번호, 날짜, 제목
+	 * </pre>
 	 */
 	public void sortSubMenu() {
+
+		bm = new BoardManager();
+		
 		System.out.println("*** 게시글 정렬 메뉴 ***");
 		System.out.println("1. 글번호순 오름차순 정렬");
 		System.out.println("2. 글번호순 내림차순 정렬");
@@ -74,21 +78,17 @@ public class BoardMenu {
 		System.out.println("6. 글제목순 내림차순 정렬");
 		System.out.println("7. mainMenu()메소드로 이동");
 		
+		sc = new Scanner(System.in);
 		switch(sc.nextLine()) {
 		
-		case "1" : bm.sortList(new AscBoardNo());
-		case "2" : bm.sortList(new DescBoardNo());
-		case "3" : bm.sortList(new AscBoardDate());
-		case "4" : bm.sortList(new DescBoardDate());
-		case "5" : bm.sortList(new AscBoardTitle());
-		case "6" : bm.sortList(new DescBoardTitle());
+		case "1" : bm.sortList(new AscBoardNo()); break;
+		case "2" : bm.sortList(new DescBoardNo()); break;
+		case "3" : bm.sortList(new AscBoardDate()); break;
+		case "4" : bm.sortList(new DescBoardDate()); break;
+		case "5" : bm.sortList(new AscBoardTitle()); break;
+		case "6" : bm.sortList(new DescBoardTitle()); break;
 		case "7" : return;
 		default : return;
-		
 		}
-		
-		
-		
 	}
-	
 }

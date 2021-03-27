@@ -21,18 +21,14 @@ public class InputBoard {
 	public BoardVO inputBoard() {
 		
 		BoardVO board = new  BoardVO();
-		Scanner sc = new Scanner(System.in);
 		
 		board.setBoardTitle(inputBoardTitle());
-		
+		Scanner sc = new Scanner(System.in);
 		System.out.print("작성자 : ");
 		String writer = sc.nextLine();
 		board.setBoardWriter(writer);
-		
 		board.setBoardContent(inputBoardContent());
-		
 		board.setBoardDate(new Date());
-		System.out.println("입력창");
 		return board;
 //		내용 직접입력
 //		System.out.println("내용 : ");
@@ -75,8 +71,6 @@ public class InputBoard {
 //				break;
 //			}
 //		}
-		
-		
 		return inputNum;
 	}
 	
@@ -87,9 +81,8 @@ public class InputBoard {
 	 */
 	public String inputBoardTitle() {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("제목 : ");
+		System.out.print("글제목 : ");
 		String str = sc.nextLine();
-		
 		return str;
 	}
 	
@@ -102,10 +95,9 @@ public class InputBoard {
 	
 	BoardVO board = new BoardVO();
 	Scanner sc= new Scanner(System.in);
+	
 	System.out.println("내용 : ");
-	
 	String content = "";
-	
 		while(true) {
 			String input = sc.nextLine();
 			if(input.equals("exit")) {

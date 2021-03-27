@@ -4,10 +4,8 @@ import com.greedy.silsub02.view.BoardMenu;
 
 public class Run {
 
-	public static 
-	void main(String[] args) {
+	public static void main(String[] args) {
 		
-
 		new BoardMenu().mainMenu();
 		
 	}

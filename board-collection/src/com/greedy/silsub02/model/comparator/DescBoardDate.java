@@ -2,11 +2,14 @@ package com.greedy.silsub02.model.comparator;
 
 import java.util.Comparator;
 
-public class DescBoardDate implements Comparator{
+import com.greedy.silsub02.vo.BoardVO;
+
+public class DescBoardDate implements Comparator<BoardVO>{
 
 	@Override
-	public int compare(Object o1, Object o2) {
-		return 0;
+	public int compare(BoardVO b1, BoardVO b2) {
+		
+		return b2.getBoardDate().compareTo(b1.getBoardDate());
 	}
 
 }

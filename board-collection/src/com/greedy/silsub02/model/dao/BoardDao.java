@@ -19,31 +19,33 @@ public class BoardDao {
 	public BoardDao() {}
 	
 	/**
+	 * <pre>
 	 * boardList.txt 파일에서 리스트 목록 불러오기
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
+	 * </pre>
+     *
 	 */
 	public ArrayList<BoardVO> readBoardList() {
-		
+		//TODO 예외처리 순서정리, read,write 둘다
 		ObjectInputStream objIn = null;
 		ArrayList<BoardVO> result = new ArrayList<>(); 
 		try {
-			objIn = new ObjectInputStream(new BufferedInputStream(new FileInputStream("src/com/greedy/silsub02/model/dao/boardList.txt")));
 			
+			objIn = new ObjectInputStream(new BufferedInputStream(new FileInputStream("src/com/greedy/silsub02/model/dao/boardList.txt")));
 			while(true){
 				
 				result.add((BoardVO) objIn.readObject());
 			}
 			
 		}catch(EOFException e) {
-			
 		}catch (ClassNotFoundException e) {
 				e.printStackTrace();
 		} catch (FileNotFoundException e1) {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		} finally {
+			
 			if(objIn != null) {
+				
 				try {
 					objIn.close();
 				} catch (IOException e) {
@@ -51,6 +53,7 @@ public class BoardDao {
 				}
 			}
 		}
+		
 		return result;
 			
 		
@@ -82,12 +85,14 @@ public class BoardDao {
 	}
 	
 	/**
+	 * <pre>
 	 * boardList.txt파일에 리스트 기록하기
 	 * 파일 성공여부를 정수값으로 전달
-	 * 실패 : 0, 성공 : 1 
+	 * 실패 : 0, 성공 : 1  -- 근데 어따 써먹지?
+	 * </pre> 
 	 */
 	public int writeBoardList(ArrayList<BoardVO> list) {
-		
+		//TODO 실패시 0, 성공시 1 리턴 어디다쓰지?
 		File file = new File("src/com/greedy/silsub02/model/dao/boardList.txt");
 		ObjectOutputStream objOut = null; 
 
@@ -96,9 +101,11 @@ public class BoardDao {
 			if(file.createNewFile()) {
 				num = 1;
 			}
+			
 			objOut = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
 			
 			for(int i = 0; i < list.size(); i++) {
+				
 				objOut.writeObject(list.get(i));
 			}
 			objOut.flush();
@@ -107,7 +114,9 @@ public class BoardDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
+			
 			if(objOut != null) {
+				
 				try {
 					objOut.close();
 				} catch (IOException e) {
@@ -140,7 +149,6 @@ public class BoardDao {
 //				}
 //			}
 //		}
-//		
 		return num;
 	}
 	

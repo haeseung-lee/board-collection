@@ -21,7 +21,6 @@ public class BoardManager {
 	public void insertBoard(BoardVO b) {
 		
 		bd = new BoardDao();
-		rp = new ResultPrinter();
 		
 		ArrayList<BoardVO> list = bd.readBoardList();
 		b.setBoardNo(0);
@@ -29,13 +28,15 @@ public class BoardManager {
 				//새로운 리스트생성
 				b.setBoardNo(1);
 			} else {
+				
 				b.setBoardNo(list.size()+1);
 			}
 			
 		list.add(b);
 		bd.writeBoardList(list);
+		rp = new ResultPrinter();
 		rp.successPage("insertBoard");
-		
+//		rp.errorPage("insertBoard"); -- 어떤경우가 실패?
 	}
 	
 	
@@ -48,7 +49,7 @@ public class BoardManager {
 	public void selectAllList() {
 		bd = new BoardDao();
 		rp = new ResultPrinter();
-		rp.printAllList(bd.readBoardList());  // 매개변수?
+		rp.printAllList(bd.readBoardList());  
 	}
 	
 	/**
@@ -57,30 +58,30 @@ public class BoardManager {
 	 * </pre>
 	 */
 	public void selectOneBoard(int boardNo) {
-		bd = new BoardDao();
-		rp = new ResultPrinter();
-		int num = -1;
-		ArrayList<BoardVO> list = bd.readBoardList();
 		
+		bd = new BoardDao();
+		
+		ArrayList<BoardVO> list = bd.readBoardList();
+		int num = -1;
 		for(int i = 0; i < list.size(); i++) {
+			
 			if(boardNo == list.get(i).getBoardNo()) {
 				list.get(i).setReadCount(list.get(i).getReadCount() +1 );
-				
 				num = i;
 				break;
 			} 
 		}
 		
-		
 		rp = new ResultPrinter();
 		if(num != -1) {
+			
 			bd.writeBoardList(list);
 			rp.successPage("selectOne");
 			System.out.println(list.get(num));
 		} else {
+			
 			rp.errorPage("selectOne");
 		}
-		
 	}
 	
 	/**
@@ -89,26 +90,30 @@ public class BoardManager {
 	 * </pre>
 	 */
 	public void updateBoardTitle(int boardNo, String title) {
+		
 		bd = new BoardDao();
+		
 		ArrayList<BoardVO> list = bd.readBoardList(); 
 		int num = -1;
 		for(int i = 0; i < list.size(); i++) {
 			
 			if(boardNo == list.get(i).getBoardNo()) {
 				list.get(i).setBoardTitle(title);
-				num = i; break;
+				num = i; 
+				break;
 			} 
 		}
 		
 		rp = new ResultPrinter();
 		if(num != -1) {
+			
 			bd.writeBoardList(list);
 			rp.successPage("updateTitle");
 			System.out.println("수정된제목 : " + list.get(num).getBoardTitle());
 		} else {
+			
 			rp.errorPage("updateTitle");
 		}
-		
 	}
 	
 	/**
@@ -117,24 +122,30 @@ public class BoardManager {
 	 * </pre>
 	 */
 	public void updateBoardContent(int boardNo, String content) {
+		
 		bd = new BoardDao();
+		
 		ArrayList<BoardVO> list = bd.readBoardList(); 
 		int num = -1;
 		for(int i = 0; i < list.size(); i++) {
 			
 			if(boardNo == list.get(i).getBoardNo()) {
-				list.get(i).setBoardContent(content);
 				
-				num = i; break;
+				list.get(i).setBoardContent(content);
+				num = i;
+				break;
 			} 
 		}
 		
 		rp = new ResultPrinter();
+		
 		if(num != -1) {
+			
 			bd.writeBoardList(list);
 			rp.successPage("updateContent");
 			System.out.println("수정된 내용 : " + list.get(num).getBoardContent());
 		} else {
+			
 			rp.errorPage("updateContent");
 		}
 	}
@@ -147,6 +158,7 @@ public class BoardManager {
 	public void deleteBoard(int boardNo) {
 		
 		bd = new BoardDao();
+		
 		ArrayList<BoardVO> list = bd.readBoardList(); 
 		int num = -1;
 		for(int i = 0; i < list.size(); i++) {
@@ -159,9 +171,11 @@ public class BoardManager {
 		
 		rp = new ResultPrinter();
 		if(num != -1) {
+			
 			bd.writeBoardList(list);
 			rp.successPage("deleteBoard");
 		} else {
+			
 			rp.errorPage("deleteBoard");
 		}
 	}
@@ -178,18 +192,23 @@ public class BoardManager {
 		
 		ArrayList<BoardVO> allList = bd.readBoardList();
 		rp.printAllList(allList);
+		//TODO 전체글 조회가 다 출력하라는게 맞는건지?
 		
 		ArrayList<BoardVO> searchList = new ArrayList<>();
 		for(int i = 0; i < allList.size(); i++) {
+			
 			if(title.equals(allList.get(i).getBoardTitle())) {
+				
 				searchList.add(allList.get(i)); break;
 			} 
 		}
 		
 		if(!searchList.isEmpty()) {
-			System.out.println("검색 제목 : " + title);
+			
+			System.out.println("검색한 제목 : " + title);
 			rp.printBoard(allList.get(0));
 		} else {
+			
 			rp.noSearchResult();
 		}
 	}
@@ -201,6 +220,11 @@ public class BoardManager {
 	 */
 	public void sortList(Comparator<BoardVO> c) {
 		
+		bd = new BoardDao();
+		rp = new ResultPrinter();
+		
+		ArrayList<BoardVO> list = bd.readBoardList();
+		list.sort(c);
+		rp.printAllList(list);
 	}
-	
 }
