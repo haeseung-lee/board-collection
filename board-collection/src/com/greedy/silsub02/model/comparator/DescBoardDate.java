@@ -11,5 +11,4 @@ public class DescBoardDate implements Comparator<BoardVO>{
 		
 		return b2.getBoardDate().compareTo(b1.getBoardDate());
 	}
-
 }

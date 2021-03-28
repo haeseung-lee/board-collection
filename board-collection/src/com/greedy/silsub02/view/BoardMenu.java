@@ -12,9 +12,9 @@ import com.greedy.silsub02.model.comparator.DescBoardTitle;
 
 public class BoardMenu {
 
-	private Scanner sc;
-	private BoardManager bm;
-	private InputBoard ib;
+	private Scanner sc = new Scanner(System.in);
+	private BoardManager bm = new BoardManager();;
+	private InputBoard ib = new InputBoard();;
 	
 	/**
 	 * <pre>
@@ -25,9 +25,6 @@ public class BoardMenu {
 	 */
 	public void mainMenu() {
 		
-		sc = new Scanner(System.in);
-		bm = new BoardManager();
-		ib = new InputBoard();
 		label :
 		while(true) {
 			
@@ -67,8 +64,6 @@ public class BoardMenu {
 	 */
 	public void sortSubMenu() {
 
-		bm = new BoardManager();
-		
 		System.out.println("*** 게시글 정렬 메뉴 ***");
 		System.out.println("1. 글번호순 오름차순 정렬");
 		System.out.println("2. 글번호순 내림차순 정렬");
@@ -78,7 +73,6 @@ public class BoardMenu {
 		System.out.println("6. 글제목순 내림차순 정렬");
 		System.out.println("7. mainMenu()메소드로 이동");
 		
-		sc = new Scanner(System.in);
 		switch(sc.nextLine()) {
 		
 		case "1" : bm.sortList(new AscBoardNo()); break;
