@@ -28,7 +28,7 @@ public class BoardManager {
 				boardNo = 1;
 			} else {
 				//있는 경우 기존리스트의 마지막 인덱스의 글번호 조회
-				boardNo = list.get(list.size()-1).getBoardNo() + 1;
+				boardNo = list.size();
 			}
 		b.setBoardNo(boardNo);
 		list.add(b);
