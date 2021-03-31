@@ -28,7 +28,7 @@ public class BoardManager {
 				boardNo = 1;
 			} else {
 				//있는 경우 기존리스트의 마지막 인덱스의 글번호 조회
-				boardNo = list.size();
+				boardNo = list.size() + 1;
 			}
 		b.setBoardNo(boardNo);
 		list.add(b);
@@ -172,8 +172,6 @@ public class BoardManager {
 	public void searchBoard(String title) {
 		
 		ArrayList<BoardVO> allList = bd.readBoardList();
-		rp.printAllList(allList);
-		//TODO 전체글 조회가 다 출력하라는게 맞는건지?
 		
 		ArrayList<BoardVO> searchList = new ArrayList<>();
 		for(int i = 0; i < allList.size(); i++) {
@@ -203,6 +201,8 @@ public class BoardManager {
 		
 		ArrayList<BoardVO> list = bd.readBoardList();
 		list.sort(c);
+		bd.writeBoardList(list);
 		rp.printAllList(list);
+		
 	}
 }
