@@ -32,6 +32,7 @@ public class BoardManager {
 			}
 		b.setBoardNo(boardNo);
 		list.add(b);
+		
 		bd.writeBoardList(list);
 		rp.successPage("insertBoard");
 //		rp.errorPage("insertBoard"); -- 어떤경우가 실패?
@@ -53,29 +54,43 @@ public class BoardManager {
 	 */
 	public void selectOneBoard(int boardNo) {
 		
-		bd = new BoardDao();
-		
-		ArrayList<BoardVO> list = bd.readBoardList();
-		int num = -1;
-		for(int i = 0; i < list.size(); i++) {
-			
-			if(boardNo == list.get(i).getBoardNo()) {
-				list.get(i).setReadCount(list.get(i).getReadCount() +1 );
-				num = i;
-				break;
-			} 
-		}
-		
-		rp = new ResultPrinter();
-		if(num != -1) {
-			
-			bd.writeBoardList(list);
-			rp.successPage("selectOne");
-			System.out.println(list.get(num));
-		} else {
-			
+		if(boardNo == 0) {
 			rp.errorPage("selectOne");
+		} else {
+			ArrayList<BoardVO> list = bd.readBoardList();
+			for(int i = 0; i < list.size(); i++) {
+				
+				if(boardNo == list.get(i).getBoardNo()) {
+					list.get(i).setReadCount(list.get(i).getReadCount() +1 );
+					bd.writeBoardList(list);
+					rp.successPage("selectOne");
+					System.out.println(list.get(i));
+					break;
+				} 
+			}
 		}
+		
+//		ArrayList<BoardVO> list = bd.readBoardList();
+//		int num = -1;
+//		for(int i = 0; i < list.size(); i++) {
+//			
+//			if(boardNo == list.get(i).getBoardNo()) {
+//				list.get(i).setReadCount(list.get(i).getReadCount() +1 );
+//				num = i;
+//				break;
+//			} 
+//		}
+		
+//		rp = new ResultPrinter();
+//		if(num != -1) {
+//			
+//			bd.writeBoardList(list);
+//			rp.successPage("selectOne");
+//			System.out.println(list.get(num));
+//		} else {
+//			
+//			rp.errorPage("selectOne");
+//		}
 	}
 	
 	/**

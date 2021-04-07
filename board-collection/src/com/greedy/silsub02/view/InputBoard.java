@@ -61,17 +61,18 @@ public class InputBoard {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("번호를 입력하세요");
 		int inputNum = sc.nextInt();
-
+		
 //		입력받은 번호를 찾아서 있으면 return 없으면 error message 출력하고 메소드 종료하고 싶다면?		
-//		BoardDao bd = new BoardDao();                       
-//		ArrayList<BoardVO> list = bd.readBoardList();
-//		for(int i = 0; i < list.size(); i++) {
-//			if(inputNum == list.get(i).getBoardNo()) {
-//				num = inputNum;
-//				break;
-//			}
-//		}
-		return inputNum;
+		BoardDao bd = new BoardDao();
+		int num = 0;
+		ArrayList<BoardVO> list = bd.readBoardList();
+		for(int i = 0; i < list.size(); i++) {
+			if(inputNum == list.get(i).getBoardNo()) {
+				num = inputNum;
+				break;
+			}
+		}
+		return num;
 	}
 	
 	/**
